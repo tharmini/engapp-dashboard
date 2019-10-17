@@ -22,6 +22,7 @@ import OpenvsClosedGraph from './components/OpenvsClosedChart';
 import IssuesAgingGraph from './components/IssuesAgingGraph';
 import Paper from '@material-ui/core/es/Paper/Paper';
 import { withStyles } from '@material-ui/core/styles';
+import Popup from './components/Popup';
 
 const PageWrapper = withStyles({
   root: {
@@ -41,28 +42,67 @@ const DivBorder = {
   height: '300px'
 };
 
+const PopDivBorder = {
+  border: '2px solid #aaa',
+  overflowX: 'auto',
+  borderColor: '#3f51b5',
+  width: '100%',
+  height: '100%'
+};
+
+
 class App extends Component {
+constructor(props) {
+    super(props);
+    this.state = { showPopup: false, content: null };
+    this.togglePopup = this.togglePopup.bind(this);
+
+  }
+
+  togglePopup(data) {
+    this.setState({
+      showPopup: !this.state.showPopup,
+      content: data
+    });
+  }
+
+  togglePopupClose() {
+    this.setState({
+      showPopup: false,
+    });
+  }
   render() {
     return (
       <PageWrapper>
         <h1> Git Issues Monitoring Dashboard</h1>
 
         <React.Fragment>
+        {this.state.showPopup ?
+                    <Popup
+                      text={this.state.content}
+                      closePopup={this.togglePopupClose.bind(this)}
+                    />
+                    : null
+                  }
           <div className='rowC' >
+          <div onClick={(e) => this.togglePopup(<div style={PopDivBorder} ><IssuesPerTeamTable /></div>)}>
             <PageWrapper>
               <h2>Issues Count Per Team</h2>
               <div style={DivBorder} ><IssuesPerTeamTable /></div>
             </PageWrapper>
+            <div onClick={(e) => this.togglePopup(<div style={PopDivBorder} ><IssuesForlabelsChart /></div>)}>
             <PageWrapper>
               <h2>Issues Count based on Lables for team</h2>
               <div style={DivBorder} ><IssuesForlabelsChart /></div>
             </PageWrapper>
           </div>
           <div className='rowC'>
+          <div onClick={(e) => this.togglePopup(<div style={PopDivBorder} ><OpenvsClosedGraph /></div>)}>
             <PageWrapper>
               <h2>Open vs Closed Chart</h2>
               <div style={DivBorder} ><OpenvsClosedGraph /></div>
             </PageWrapper>
+            <div onClick={(e) => this.togglePopup(<div style={PopDivBorder} ><IssuesAgingGraph /></div>)}>
             <PageWrapper>
               <h2>Issues Aging Graph</h2>
               <div style={DivBorder} ><IssuesAgingGraph /></div>

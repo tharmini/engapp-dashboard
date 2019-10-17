@@ -7,3 +7,25 @@ body {
   flex-direction: row;
   overflow-x: auto;
 }
+table.MuiTable-root {
+  width: 100%;
+}
+.MuiPaper-rounded {
+  border-radius: 4px;
+  box-shadow: 0 0 black;
+}
+.MuiPaper-root.MuiPaper-elevation1.MuiPaper-rounded {
+  box-shadow: 0px;
+}
+h1 {
+  font-size: 27px !important;
+  background: white;
+}
+.MuiPaper-root.MuiPaper-elevation1.MuiPaper-rounded {
+  box-shadow: 0px;
+  box-shadow: none;
+}
+
+.MuiToolbar-root.MuiToolbar-regular.MTableToolbar-root-60.MuiToolbar-gutters {
+    min-height: 0px;
+}
